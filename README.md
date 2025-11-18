@@ -39,13 +39,13 @@ $$
 For practical purposes using standard 12 byte nonces, initialization vector $\mathtt{IV}$ is simply the first 12 bytes of $Y_0$ by construction. This is done in `extract_nonce`.
 
 $$
-Y_0 = \mathtt{IV} || 0^{31}1
+Y_0 = \mathtt{IV} \mathbin\| 0^{31}1
 $$
 
-For other nonce lengths, the initialization vector cannot be deterministically deduced, but the exact original nonce is not required for any further decryption. The following decryption always holds:
+For other nonce lengths, the initialization vector cannot be deterministically deduced, but the exact original nonce is not required for any further decryption. The following decryption always holds.
 
 $$
-P = \mathtt{CTR}_{32}(E_{K}, \mathtt{INCR}_{32}(Y_0), C)
+P = C \oplus \mathtt{CTR}_{32}(E_{K}, \mathtt{INCR}_{32}(Y_0))
 $$
 
 ## Usage

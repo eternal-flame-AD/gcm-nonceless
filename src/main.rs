@@ -77,7 +77,7 @@ fn run<C: BlockCipher + BlockEncrypt + BlockDecrypt + BlockSizeUser<BlockSize = 
     let key: GenericArray<u8, <C as KeySizeUser>::KeySize> = decode_param("key", &args.key);
     let tag = args.tag.map(|t| decode_param("tag", &t));
     let cipher = C::new(&key);
-    let recovered_j0 = recover_counter(&cipher, &c, &tag, &aad);
+    let recovered_j0 = recover_counter(&cipher, &c, tag.as_ref(), &aad);
     if !args.non_standard_nonce {
         let nonce = extract_nonce::<C>(&recovered_j0)
             .expect("Extracted nonce invalid. Wrong input or forgot --non-standard-nonce?");

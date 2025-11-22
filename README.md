@@ -74,7 +74,7 @@ let tag =
 let aad = *b"\xAE\xAD\xAE\xAD";
 let key = GenericArray::from(*b"YELLOW SUBMARINE");
 let cipher = aes::Aes128::new(&key);
-let y0 = recover_counter(&cipher, &ct, &Some(tag), &aad);
+let y0 = recover_counter(&cipher, &ct, Some(&tag), &aad);
 
 let recovered_nonce = extract_nonce::<aes::Aes128>(&y0).unwrap();
 assert_eq!(

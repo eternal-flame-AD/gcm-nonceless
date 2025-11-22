@@ -33,7 +33,7 @@ pub fn recover_counter<
 >(
     cipher: &C,
     c: &[u8],
-    tag: &Option<GenericArray<u8, <ghash::GHash as BlockSizeUser>::BlockSize>>,
+    tag: Option<&GenericArray<u8, <ghash::GHash as BlockSizeUser>::BlockSize>>,
     aad: &[u8],
 ) -> GenericArray<u8, <ghash::GHash as BlockSizeUser>::BlockSize> {
     let mut c = c;
@@ -173,7 +173,7 @@ mod tests {
                         .unwrap();
 
                     let recovered_j0 =
-                        recover_counter(&aes_cipher, &ciphertext[..pt_len], &Some(tag), aad);
+                        recover_counter(&aes_cipher, &ciphertext[..pt_len], Some(&tag), aad);
                     let recovered_nonce = extract_nonce::<C>(&recovered_j0).unwrap();
                     assert_eq!(recovered_nonce, &nonce);
 

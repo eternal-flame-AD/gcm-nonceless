@@ -9,6 +9,10 @@ use aes::cipher::{
 use ctr::CtrCore;
 use ghash::{GHash, universal_hash::UniversalHash};
 
+pub use aes;
+pub use ctr;
+pub use ghash;
+
 /// Recover initial counter block from the ciphertext, tag, and associated data.
 ///
 /// # ⚠️ Security Warning: Hazmat
